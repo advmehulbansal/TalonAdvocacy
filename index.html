@@ -55,12 +55,9 @@
     <div class="container">
       <h2>About Us</h2>
       <p>Talon Advocacy is a modern, purpose-driven law firm committed to delivering justice with integrity. Founded by Advocate Mehul Bansal, our firm is built on the belief that integrity is our foundation and justice is our goal. We bring clarity, courage, and compassion to every matter we handle.</p>
-
-<p>Headquartered in Amritsar, Talon Advocacy provides expert legal consultation, litigation, and dispute resolution services across a wide range of practice areas including civil, constitutional, and human rights law. Whether representing individuals, businesses, or communities, we stand as unwavering advocates for truth, fairness, and due process.</p>
-
-<p>Our team of dedicated legal professionals is driven by the values of transparency, accountability, and ethical excellence. At Talon Advocacy, we don’t just practice law — we strive to make a meaningful impact in society by empowering the marginalized, defending the voiceless, and mentoring future leaders of the legal profession.</p>
-
-<p>We believe that justice should not be a privilege — it should be a right accessible to all.</p>
+      <p>Headquartered in Amritsar, Talon Advocacy provides expert legal consultation, litigation, and dispute resolution services across a wide range of practice areas including civil, constitutional, and human rights law. Whether representing individuals, businesses, or communities, we stand as unwavering advocates for truth, fairness, and due process.</p>
+      <p>Our team of dedicated legal professionals is driven by the values of transparency, accountability, and ethical excellence. At Talon Advocacy, we don’t just practice law — we strive to make a meaningful impact in society by empowering the marginalized, defending the voiceless, and mentoring future leaders of the legal profession.</p>
+      <p>We believe that justice should not be a privilege — it should be a right accessible to all.</p>
     </div>
   </section>
 
@@ -144,5 +141,65 @@
       <p>&copy; 2025 Talon Advocacy. All rights reserved.</p>
     </div>
   </footer>
+  <!-- ✅ Disclaimer Popup -->
+  <div id="disclaimer-overlay">
+    <div id="disclaimer-box">
+      <h2>Disclaimer</h2>
+      <p>
+        The Bar Council of India does not permit advertisement or solicitation by advocates in any form or manner.
+        By accessing this website, <strong>www.talonadvocacy.com</strong>, you acknowledge and confirm that you are
+        seeking information relating to <strong>Talon Advocacy</strong> of your own accord and that there has been
+        no form of solicitation, advertisement or inducement by <strong>Talon Advocacy</strong> or its members.
+      </p>
+      <p>
+        The content of this website is for informational purposes only and should not be interpreted as solicitation
+        or advertisement. No material/information provided on this website should be construed as legal advice.
+        <strong>Talon Advocacy</strong> shall not be liable for consequences of any action taken by relying on the
+        material/information provided on this website. The contents of this website are the intellectual property
+        of <strong>Talon Advocacy</strong>.
+      </p>
+
+      <label style="display:flex; align-items:center; gap:10px; margin-top:20px;">
+        <input type="checkbox" id="accept-checkbox">
+        I Accept the Above
+      </label>
+
+      <button id="proceed-btn" disabled>Proceed to Website</button>
+    </div>
+  </div>
+  <script>
+    localStorage.removeItem("disclaimerAccepted");
+    document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.getElementById("disclaimer-overlay");
+    const checkbox = document.getElementById("accept-checkbox");
+    const proceedBtn = document.getElementById("proceed-btn");
+
+    if (!overlay) return;
+
+    const accepted = localStorage.getItem("disclaimerAccepted");
+
+    if (!accepted) {
+      overlay.style.display = "flex";
+      document.body.classList.add("modal-open");
+    } else {
+      overlay.remove();
+    }
+
+    // Enable button only if checkbox is checked
+    checkbox.addEventListener("change", () => {
+      proceedBtn.disabled = !checkbox.checked;
+    });
+
+    proceedBtn.addEventListener("click", () => {
+      overlay.style.transition = "opacity 0.4s ease";
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        overlay.style.display = "none";
+        document.body.classList.remove("modal-open");
+        localStorage.setItem("disclaimerAccepted", "true");
+      }, 400);
+    });
+  });
+  </script>
 </body>
 </html>
